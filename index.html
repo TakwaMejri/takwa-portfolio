@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Takwa Mejri — Cloud & DevOps Engineering Student. Cloud, Kubernetes, Docker, Terraform, Ansible, CI/CD and infrastructure automation.">
+<title>Takwa Mejri — Cloud & DevOps</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#091321;
+  --panel:#101e31;
+  --panel2:#172941;
+  --panel3:#1d3551;
+  --cream:#f3ecda;
+  --muted:#aaa083;
+  --gold:#cba135;
+  --gold2:#e0b94c;
+  --green:#6fcf97;
+  --red:#e77b7b;
+  --blue:#76a9e8;
+  --line:rgba(243,236,218,.13);
+  --shadow:rgba(0,0,0,.45);
+  --display:'Space Grotesk',sans-serif;
+  --body:'IBM Plex Sans',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:
+  radial-gradient(circle at 1px 1px,rgba(243,236,218,.045) 1px,transparent 1px) 0 0/28px 28px,
+  var(--bg);color:var(--cream);font-family:var(--body);line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:50;
+  background:repeating-linear-gradient(to bottom,rgba(243,236,218,.018) 0 1px,transparent 1px 4px);
+  mix-blend-mode:overlay;
+}
+a{color:var(--gold)}
+button,input{font:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+code,.mono{font-family:var(--mono)}
+h1,h2,h3{font-family:var(--display);margin:0 0 .55em;line-height:1.15}
+p{max-width:70ch}
+.wrap{max-width:1000px;margin:auto;padding:28px 16px 70px}
+.window{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 30px 70px -25px var(--shadow)}
+.topbar{
+  display:flex;align-items:center;gap:14px;padding:11px 16px;
+  background:var(--panel2);border-bottom:1px solid var(--line);flex-wrap:wrap
+}
+.dots{display:flex;gap:7px}.dots i{width:11px;height:11px;border-radius:50%;display:block}
+.dots i:nth-child(1){background:var(--gold)}.dots i:nth-child(2){background:var(--muted)}.dots i:nth-child(3){background:var(--green)}
+.title{font:500 .78rem var(--mono);color:var(--muted);flex:1;text-align:center}
+.top-actions{display:flex;gap:8px;align-items:center}
+.lang{display:flex;border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.lang button{
+  border:0;background:transparent;color:var(--muted);padding:4px 10px;cursor:pointer;font:.72rem var(--mono)
+}
+.lang button.active{background:var(--gold);color:var(--bg);font-weight:700}
+.recruiter-toggle{
+  border:1px solid var(--line);background:transparent;color:var(--cream);
+  border-radius:5px;padding:5px 9px;cursor:pointer;font:.72rem var(--mono)
+}
+.recruiter-toggle:hover{border-color:var(--gold);color:var(--gold)}
+.status{font:.72rem var(--mono);color:var(--muted);display:flex;align-items:center;gap:6px}
+.online{width:7px;height:7px;background:var(--green);border-radius:50%;display:inline-block;box-shadow:0 0 0 0 rgba(111,207,151,.5);animation:pulse 2.4s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 7px rgba(111,207,151,0)}100%{box-shadow:0 0 0 0 rgba(111,207,151,0)}}
+nav{display:flex;gap:2px;overflow:auto;border-bottom:1px solid var(--line);background:var(--panel)}
+nav a{font:.76rem var(--mono);color:var(--muted);text-decoration:none;padding:12px 11px;white-space:nowrap;border-bottom:2px solid transparent}
+nav a:hover,nav a.active{color:var(--gold);border-bottom-color:var(--gold)}
+main{padding:0 30px}
+.section{padding:52px 0;border-bottom:1px solid var(--line)}
+.section:last-child{border-bottom:0}
+.prompt{font:.8rem var(--mono);color:var(--muted);margin-bottom:13px}
+.prompt b{color:var(--gold)}
+.kicker{font:.72rem var(--mono);color:var(--gold);letter-spacing:.04em;text-transform:uppercase}
+.hero{padding-top:58px}
+.hero-grid{display:grid;grid-template-columns:1.5fr .8fr;gap:28px;align-items:end}
+.hero h1{font-size:clamp(2.7rem,7vw,4.7rem);letter-spacing:-.045em}
+.role{font:600 1rem var(--mono);color:var(--gold);margin:0 0 18px}
+.hero-copy{font-size:1.04rem;color:#e7dfcf;max-width:68ch}
+.story-line{border-left:2px solid var(--gold);padding:12px 0 12px 17px;color:var(--muted);font-size:.94rem}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0}
+.badge{font:.72rem var(--mono);border:1px solid var(--line);background:var(--panel2);padding:5px 10px;border-radius:20px;color:var(--muted)}
+.badge.gold{background:var(--gold);color:var(--bg);border-color:var(--gold);font-weight:700}
+.buttons{display:flex;gap:9px;flex-wrap:wrap}
+.btn{
+  display:inline-block;text-decoration:none;border:1px solid var(--line);background:var(--panel2);
+  color:var(--cream);border-radius:6px;padding:10px 14px;font:.78rem var(--mono);transition:.15s
+}
+.btn:hover{border-color:var(--gold);transform:translateY(-1px)}
+.btn.primary{background:var(--gold);border-color:var(--gold);color:var(--bg);font-weight:700}
+.terminal-card{background:#07101d;border:1px solid var(--line);border-radius:8px;padding:16px;font:.76rem var(--mono);min-height:205px}
+.term-row{margin:5px 0}.term-row .g{color:var(--green)}.term-row .y{color:var(--gold)}.term-row .m{color:var(--muted)}
+.section-title{font-size:1.55rem}
+.blurb{color:var(--muted);font-style:italic;margin:0 0 24px}
+.journey{position:relative;margin-top:30px}
+.journey:before{content:"";position:absolute;left:84px;top:4px;bottom:4px;width:1px;background:var(--line)}
+.step{display:grid;grid-template-columns:68px 32px 1fr;gap:10px;margin-bottom:24px;align-items:start}
+.year{font:600 .76rem var(--mono);color:var(--muted);padding-top:3px;text-align:right}
+.node{width:13px;height:13px;border-radius:50%;background:var(--panel2);border:2px solid var(--muted);margin:2px auto 0;z-index:1}
+.step.current .node{background:var(--green);border-color:var(--green);box-shadow:0 0 0 5px rgba(111,207,151,.08)}
+.step h3{font-size:1.02rem;margin-bottom:4px}.step p{margin:0;color:var(--muted);font-size:.9rem}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}.tag{font:.68rem var(--mono);color:var(--cream);background:var(--panel2);border:1px solid var(--line);padding:3px 7px;border-radius:4px}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+.card{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:18px}
+.card:hover{border-color:rgba(203,161,53,.55)}
+.card-head{display:flex;justify-content:space-between;gap:12px;align-items:start}
+.card h3{font-size:1.08rem}.path{font:.68rem var(--mono);color:var(--gold);margin-bottom:10px}
+.card p{font-size:.88rem;color:var(--muted);margin:7px 0}
+.mini-label{font:.66rem var(--mono);color:var(--gold);text-transform:uppercase}
+.stack{font:.72rem var(--mono);color:var(--cream);margin-top:9px}
+.linkline{margin-top:13px;font:.72rem var(--mono)}
+.linkline a{text-decoration:none}
+.arch{margin-top:14px;padding:12px;background:#07101d;border:1px solid var(--line);border-radius:6px;font:.67rem var(--mono);color:var(--muted);white-space:pre;overflow:auto}
+.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.skill h3{font-size:.95rem}.skill-key{font:.68rem var(--mono);color:var(--gold)}
+.skill-list{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}.skill-list span{font:.69rem var(--mono);background:var(--panel2);border:1px solid var(--line);padding:4px 7px;border-radius:4px}
+.evidence{margin-top:13px;font-size:.72rem;color:var(--muted)}.evidence b{color:var(--green)}
+.experience{list-style:none;margin:0;padding:0}
+.exp{position:relative;padding:0 0 30px 30px}.exp:last-child{padding-bottom:0}
+.exp:before{content:"";position:absolute;left:5px;top:7px;bottom:-2px;width:1px;background:var(--line)}
+.exp:last-child:before{display:none}
+.exp:after{content:"";position:absolute;left:0;top:4px;width:12px;height:12px;border-radius:50%;background:var(--panel2);border:2px solid var(--muted)}
+.exp:first-child:after{background:var(--green);border-color:var(--green)}
+.exp-meta{font:.68rem var(--mono);color:var(--muted);margin-bottom:5px}.exp-meta b{color:var(--gold)}
+.exp h3{font-size:1.03rem;margin-bottom:3px}.exp .subject{font:.72rem var(--mono);color:var(--muted)}
+.exp ul{margin:10px 0 0;padding-left:18px}.exp li{margin:5px 0;font-size:.86rem}.exp li::marker{color:var(--gold)}
+.incident{background:#0a1422;border:1px solid var(--line);border-radius:8px;padding:18px;margin-top:20px}
+.incident-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font:.72rem var(--mono)}
+.bad-red{color:var(--red)}.bad-green{color:var(--green)}
+.incident h3{font-size:1.08rem;margin:12px 0}
+.incident-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.incident-grid div{background:var(--panel2);padding:10px;border-radius:5px}
+.incident-grid strong{display:block;color:var(--gold);font:.66rem var(--mono);margin-bottom:4px}.incident-grid span{font-size:.78rem;color:var(--muted)}
+.recruiter{
+  background:linear-gradient(135deg,rgba(203,161,53,.10),rgba(111,207,151,.04));
+  border:1px solid rgba(203,161,53,.35);border-radius:9px;padding:20px
+}
+.recruit-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.recruit-list{list-style:none;padding:0;margin:0}.recruit-list li{padding:7px 0;border-bottom:1px solid var(--line);font-size:.84rem}
+.recruit-list b{color:var(--gold);font-family:var(--mono);font-size:.7rem}
+.console{background:#06101c;border:1px solid var(--line);border-radius:7px;padding:12px}
+.output{height:220px;overflow:auto;font:.73rem var(--mono);color:var(--cream);margin-bottom:10px}
+.output div{white-space:pre-wrap;margin-bottom:5px}.output .cmd{color:var(--muted)}.output .cmd:before{content:"$ ";color:var(--gold)}
+.input-row{display:flex;gap:8px;align-items:center}.input-row span{font:.73rem var(--mono);color:var(--gold)}
+.input-row input{flex:1;background:transparent;border:0;color:var(--cream);font:.78rem var(--mono);outline:0}
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:12px}.contact a{color:var(--cream);text-decoration:none}.contact a:hover{color:var(--gold)}
+.contact div{background:var(--panel2);padding:11px;border:1px solid var(--line);border-radius:5px;font:.75rem var(--mono)}
+.contact b{color:var(--gold)}
+footer{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;padding:15px 28px;background:var(--panel2);border-top:1px solid var(--line);font:.67rem var(--mono);color:var(--muted)}
+.hidden{display:none!important}
+.recruiter-mode .recruiter{box-shadow:0 0 35px rgba(203,161,53,.08)}
+@media(max-width:760px){
+  main{padding:0 18px}.hero-grid,.recruit-grid{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr}.skills{grid-template-columns:1fr 1fr}
+  .journey:before{left:75px}.step{grid-template-columns:58px 34px 1fr}
+  .incident-grid{grid-template-columns:1fr}.contact{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+  .topbar .title{order:4;flex-basis:100%;text-align:left}.skills{grid-template-columns:1fr}
+  .hero{padding-top:38px}.section{padding:38px 0}
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+<div class="window">
+
+<header class="topbar">
+  <div class="dots"><i></i><i></i><i></i></div>
+  <div class="title">takwa@devops:~ — portfolio</div>
+  <div class="top-actions">
+    <div class="status"><span class="online"></span><span data-i18n="online">online</span></div>
+    <div class="lang"><button class="active" data-lang="fr">FR</button><button data-lang="en">EN</button></div>
+    <button class="recruiter-toggle" id="recruiterToggle" data-i18n="recruiterMode">Recruiter mode</button>
+  </div>
+</header>
+
+<nav id="nav">
+  <a href="#about" data-i18n="navAbout">~/about</a>
+  <a href="#journey" data-i18n="navJourney">~/journey</a>
+  <a href="#projects" data-i18n="navProjects">~/projects</a>
+  <a href="#skills" data-i18n="navSkills">~/skills</a>
+  <a href="#experience" data-i18n="navExperience">~/experience</a>
+  <a href="#contact" data-i18n="navContact">~/contact</a>
+</nav>
+
+<main>
+
+<section id="about" class="section hero">
+  <div class="hero-grid">
+    <div>
+      <div class="prompt"><b>takwa@devops:~$</b> whoami</div>
+      <div class="kicker" data-i18n="kicker">Cloud & DevOps Engineering Student</div>
+      <h1>Takwa<br>Mejri<span style="color:var(--gold)">.</span></h1>
+      <p class="role" data-i18n="heroRole">Cloud · Infrastructure · Networks · DevOps · Automation</p>
+      <p class="hero-copy" data-i18n="heroCopy">
+        I started with networks, moved into Linux and automation, then discovered Cloud and Kubernetes.
+        Today, I build reproducible infrastructure, containerized platforms and CI/CD workflows through academic projects, internships and hands-on labs.
+      </p>
+      <div class="story-line" data-i18n="storyLine">
+        My goal is not to pretend I know everything. It is to understand why things break, automate what can be automated, document what I learn, and keep improving.
+      </div>
+      <div class="badges">
+        <span class="badge gold" data-i18n="pfe">PFE available — January 2027</span>
+        <span class="badge">Ariana, Tunisia</span>
+        <span class="badge">LPIC-1 · 770/800</span>
+        <span class="badge">ESPRIT · Cloud Computing</span>
+      </div>
+      <div class="buttons">
+        <a class="btn primary" href="#journey" data-i18n="journeyBtn">$ ./see-my-journey.sh</a>
+        <a class="btn" href="https://github.com/TakwaMejri" target="_blank" rel="noopener">$ git remote -v</a>
+        <a class="btn" href="mailto:mejri.takwa26@gmail.com">$ mail --to takwa</a>
+      </div>
+    </div>
+
+    <div class="terminal-card">
+      <div class="term-row"><span class="m">BOOT</span> <span class="g">OK</span></div>
+      <div class="term-row"><span class="m">networking</span> <span class="g">learned</span></div>
+      <div class="term-row"><span class="m">linux</span> <span class="g">learned</span></div>
+      <div class="term-row"><span class="m">automation</span> <span class="g">built</span></div>
+      <div class="term-row"><span class="m">cloud</span> <span class="g">built</span></div>
+      <div class="term-row"><span class="m">kubernetes</span> <span class="g">deployed</span></div>
+      <div class="term-row"><span class="m">production mindset</span> <span class="y">growing...</span></div>
+      <br>
+      <div class="term-row"><span class="y">$</span> git status</div>
+      <div class="term-row"><span class="g">On branch next-challenge</span></div>
+      <div class="term-row"><span class="m">PFE starting Jan 2027</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="journey" class="section">
+  <div class="prompt"><b>$</b> cat journey.log</div>
+  <h2 class="section-title" data-i18n="journeyTitle">The journey: from networks to Cloud</h2>
+  <p class="blurb" data-i18n="journeyBlurb">The technologies changed. The direction became clearer.</p>
+
+  <div class="journey">
+    <div class="step">
+      <div class="year">2022</div><div class="node"></div>
+      <div><h3 data-i18n="j1Title">Networks — understanding the foundation</h3><p data-i18n="j1Text">Packet Tracer, routers, connectivity and the first realization that infrastructure is more than application code.</p><div class="tags"><span class="tag">TCP/IP</span><span class="tag">Packet Tracer</span><span class="tag">Routing</span></div></div>
+    </div>
+    <div class="step">
+      <div class="year">2024</div><div class="node"></div>
+      <div><h3 data-i18n="j2Title">Linux & Automation — stop doing it manually</h3><p data-i18n="j2Text">Linux administration, Ansible and GitLab CI introduced the idea that repeatable operations should become code.</p><div class="tags"><span class="tag">Linux</span><span class="tag">Ansible</span><span class="tag">GitLab CI</span></div></div>
+    </div>
+    <div class="step">
+      <div class="year">2024</div><div class="node"></div>
+      <div><h3 data-i18n="j3Title">Cloud & CI/CD — shipping with confidence</h3><p data-i18n="j3Text">A 9-microservice application led to Docker Compose, Azure, AKS, Terraform, automated tests and monitoring.</p><div class="tags"><span class="tag">Docker</span><span class="tag">Azure</span><span class="tag">AKS</span><span class="tag">Terraform</span><span class="tag">Prometheus</span></div></div>
+    </div>
+    <div class="step">
+      <div class="year">2025–26</div><div class="node"></div>
+      <div><h3 data-i18n="j4Title">Cloud-native — building bigger systems</h3><p data-i18n="j4Text">STADNA brought together OpenStack, Docker, Kubernetes, Ansible and a multi-service application in a team project.</p><div class="tags"><span class="tag">OpenStack</span><span class="tag">Kubernetes</span><span class="tag">Ansible</span></div></div>
+    </div>
+    <div class="step current">
+      <div class="year">2026</div><div class="node"></div>
+      <div><h3 data-i18n="j5Title">Production mindset — learning to troubleshoot</h3><p data-i18n="j5Text">At DATA-TRICKS, I worked on a containerized LMS, RBAC, backups, CI/CD-oriented workflows and real infrastructure troubleshooting.</p><div class="tags"><span class="tag">Docker</span><span class="tag">Moodle</span><span class="tag">RBAC</span><span class="tag">Troubleshooting</span></div></div>
+    </div>
+    <div class="step current">
+      <div class="year">2027</div><div class="node"></div>
+      <div><h3 data-i18n="j6Title">Next chapter — your infrastructure?</h3><p data-i18n="j6Text">Looking for a 6-month final-year internship in Cloud, DevOps, Platform Engineering, infrastructure or automation, starting January 2027.</p><div class="tags"><span class="tag">Cloud</span><span class="tag">DevOps</span><span class="tag">Platform Engineering</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="section">
+  <div class="prompt"><b>$</b> ls -la ~/projects</div>
+  <h2 class="section-title" data-i18n="projectsTitle">What I build</h2>
+  <p class="blurb" data-i18n="projectsBlurb">Not just technology lists: problem → architecture → result → lesson learned.</p>
+
+  <div class="cards">
+    <article class="card">
+      <div class="path">drwxr-xr-x ~/projects/stadna</div>
+      <div class="card-head"><h3>STADNA</h3><span class="tag">2025–2026</span></div>
+      <p data-i18n="stadnaDesc">Cloud-native Tunisian football-pitch booking and management platform.</p>
+      <div class="mini-label" data-i18n="built">Built</div>
+      <div class="stack">OpenStack · Docker · Kubernetes · Ansible · Spring Boot · Angular</div>
+      <div class="mini-label" style="margin-top:10px" data-i18n="learned">Learned</div>
+      <p data-i18n="stadnaLearn">How infrastructure, networking, orchestration and application development have to work together.</p>
+      <div class="arch">USER
+  │
+  ▼
+Kubernetes
+  ├── Spring Boot API
+  ├── ML service
+  └── frontend
+  │
+  ▼
+MySQL</div>
+      <div class="linkline"><a href="https://github.com/TakwaMejri" target="_blank">→ GitHub / architecture</a></div>
+    </article>
+
+    <article class="card">
+      <div class="path">drwxr-xr-x ~/projects/data-tricks</div>
+      <div class="card-head"><h3>DATA-TRICKS LMS</h3><span class="tag">2026</span></div>
+      <p data-i18n="dataDesc">Containerized Moodle platform for internal training and external candidate assessment.</p>
+      <div class="mini-label" data-i18n="built">Built</div>
+      <div class="stack">Docker · Moodle · MariaDB · Redis · RBAC · SMTP · Backups</div>
+      <div class="mini-label" style="margin-top:10px" data-i18n="learned">Learned</div>
+      <p data-i18n="dataLearn">How small infrastructure decisions affect reliability, security, isolation and operations.</p>
+      <div class="linkline"><a href="#incident" data-i18n="incidentLink">→ See the incident</a></div>
+    </article>
+
+    <article class="card">
+      <div class="path">drwxr-xr-x ~/projects/azure-cicd</div>
+      <div class="card-head"><h3>Cloud CI/CD</h3><span class="tag">2024</span></div>
+      <p data-i18n="azureDesc">Bachelor's capstone focused on deploying a 9-microservice application on Microsoft Azure.</p>
+      <div class="mini-label" data-i18n="built">Built</div>
+      <div class="stack">Docker Compose · Azure · AKS · Terraform · CI/CD · Prometheus · Grafana</div>
+      <div class="mini-label" style="margin-top:10px" data-i18n="learned">Learned</div>
+      <p data-i18n="azureLearn">The path from source code to automated build, test, infrastructure and deployment.</p>
+    </article>
+
+    <article class="card">
+      <div class="path">drwxr-xr-x ~/projects/outid</div>
+      <div class="card-head"><h3>Outid</h3><span class="tag">2024</span></div>
+      <p data-i18n="outidDesc">Interactive e-learning platform designed for Tunisian students and children.</p>
+      <div class="mini-label" data-i18n="built">Built</div>
+      <div class="stack">Java · Desktop · Educational games · Quizzes</div>
+      <div class="mini-label" style="margin-top:10px" data-i18n="learned">Learned</div>
+      <p data-i18n="outidLearn">How to design a complete application around a real user need.</p>
+    </article>
+  </div>
+</section>
+
+<section id="incident" class="section">
+  <div class="prompt"><b>$</b> incident --show latest</div>
+  <h2 class="section-title" data-i18n="incidentTitle">A real troubleshooting story</h2>
+  <p class="blurb" data-i18n="incidentBlurb">Because DevOps is not only about deploying when everything works.</p>
+
+  <div class="incident">
+    <div class="incident-top">
+      <span>INCIDENT #001 · DATA-TRICKS</span>
+      <span><span class="bad-red">● BROKEN</span> → <span class="bad-green">● RESOLVED</span></span>
+    </div>
+    <h3>Traefik v3 × Docker Engine 29</h3>
+    <div class="incident-grid">
+      <div><strong data-i18n="symptom">SYMPTOM</strong><span data-i18n="symptomText">Reverse proxy communication issue.</span></div>
+      <div><strong data-i18n="investigation">INVESTIGATION</strong><span data-i18n="investigationText">Checked versions, API compatibility and deployment behavior.</span></div>
+      <div><strong data-i18n="resolution">RESOLUTION</strong><span data-i18n="resolutionText">Migrated the reverse proxy to Nginx Proxy Manager and restored the service.</span></div>
+    </div>
+    <p style="color:var(--muted);font-size:.82rem;margin:15px 0 0" data-i18n="incidentLesson">
+      Lesson: when an infrastructure component breaks, understand the dependency chain before applying a random workaround.
+    </p>
+  </div>
+</section>
+
+<section id="skills" class="section">
+  <div class="prompt"><b>$</b> cat skills.yaml</div>
+  <h2 class="section-title" data-i18n="skillsTitle">What I can work with</h2>
+  <p class="blurb" data-i18n="skillsBlurb">Skills backed by projects, internships and hands-on practice.</p>
+
+  <div class="skills">
+    <div class="card skill"><h3>☁ Cloud & Infrastructure</h3><div class="skill-key">cloud_infra:</div><div class="skill-list"><span>Linux</span><span>AWS</span><span>Azure</span><span>OpenStack</span><span>Cloud Computing</span></div><div class="evidence">proof: <b>STADNA · Azure project · labs</b></div></div>
+    <div class="card skill"><h3>📦 Containers & Orchestration</h3><div class="skill-key">containers:</div><div class="skill-list"><span>Docker</span><span>Kubernetes</span><span>Helm</span><span>Docker Compose</span></div><div class="evidence">proof: <b>STADNA · LMS · Azure project</b></div></div>
+    <div class="card skill"><h3>⚙ Infrastructure as Code</h3><div class="skill-key">iac:</div><div class="skill-list"><span>Terraform</span><span>Ansible</span></div><div class="evidence">proof: <b>Azure project · Topnet · STADNA</b></div></div>
+    <div class="card skill"><h3>🔁 CI/CD</h3><div class="skill-key">delivery:</div><div class="skill-list"><span>GitLab CI</span><span>Azure DevOps</span><span>Git</span><span>CI/CD</span></div><div class="evidence">proof: <b>Azure project · Topnet · projects</b></div></div>
+    <div class="card skill"><h3>📊 Observability</h3><div class="skill-key">observability:</div><div class="skill-list"><span>Prometheus</span><span>Grafana</span><span>Monitoring</span><span>Logs</span></div><div class="evidence">proof: <b>Azure project · Cloud labs</b></div></div>
+    <div class="card skill"><h3>🌐 Networks & Security</h3><div class="skill-key">foundation:</div><div class="skill-list"><span>TCP/IP</span><span>VLAN</span><span>Routing</span><span>OWASP ZAP</span><span>RBAC</span></div><div class="evidence">proof: <b>Telecom · SEIT · LMS</b></div></div>
+  </div>
+</section>
+
+<section id="experience" class="section">
+  <div class="prompt"><b>$</b> git log --oneline --decorate experience</div>
+  <h2 class="section-title" data-i18n="experienceTitle">Experience</h2>
+  <p class="blurb" data-i18n="experienceBlurb">Each entry represents something I actually worked on.</p>
+
+  <ul class="experience">
+    <li class="exp">
+      <div class="exp-meta"><b>a3f9c21</b> · HEAD → main · Jul–Aug 2026</div>
+      <h3>DATA-TRICKS — Advanced Internship II</h3>
+      <div class="subject" data-i18n="exp1Subject">Containerized LMS platform</div>
+      <ul>
+        <li data-i18n="exp1a">Designed and deployed a Moodle LMS for internal training and external candidate assessment, with RBAC and isolation between audiences.</li>
+        <li data-i18n="exp1b">Worked with Docker, MariaDB, Redis, SMTP, backups and containerized services.</li>
+        <li data-i18n="exp1c">Investigated a Traefik v3 / Docker Engine 29 compatibility issue and migrated the reverse proxy.</li>
+        <li data-i18n="exp1d">Implemented custom Moodle functionality around OAuth2 SSO and PDF certificates.</li>
+        <li data-i18n="exp1e">Worked in Scrum across four sprints and documented the technical solution.</li>
+      </ul>
+    </li>
+
+    <li class="exp">
+      <div class="exp-meta"><b>7e2b40d</b> · Aug–Sep 2025</div>
+      <h3>SEIT Consulting — Introductory Internship II</h3>
+      <div class="subject" data-i18n="exp2Subject">Security audit of an ASP.NET Core REST API</div>
+      <ul>
+        <li data-i18n="exp2a">Audited a REST API and identified three vulnerabilities using OWASP ZAP.</li>
+        <li data-i18n="exp2b">Implemented two-factor authentication for an insurance application.</li>
+        <li data-i18n="exp2c">Documented findings and proposed concrete security improvements.</li>
+      </ul>
+    </li>
+
+    <li class="exp">
+      <div class="exp-meta"><b>51c8aa9</b> · Feb–Jun 2024</div>
+      <h3>SASCode — Bachelor's Capstone Project</h3>
+      <div class="subject" data-i18n="exp3Subject">CI/CD pipeline for Microsoft Azure</div>
+      <ul>
+        <li data-i18n="exp3a">Worked on a 9-microservice application containerized with Docker Compose.</li>
+        <li data-i18n="exp3b">Integrated automated system tests into the delivery workflow.</li>
+        <li data-i18n="exp3c">Built a CI/CD pipeline on Azure and orchestrated the application with AKS.</li>
+        <li data-i18n="exp3d">Provisioned infrastructure with Terraform and monitored it with Prometheus and Grafana.</li>
+      </ul>
+    </li>
+
+    <li class="exp">
+      <div class="exp-meta"><b>0d41f6b</b> · Jan 2024</div>
+      <h3>Topnet — Advanced Internship I</h3>
+      <div class="subject" data-i18n="exp4Subject">Linux operations automation</div>
+      <ul>
+        <li data-i18n="exp4a">Automated Linux operations with GitLab CI and Ansible.</li>
+        <li data-i18n="exp4b">Developed Ansible playbooks to standardize network configurations.</li>
+      </ul>
+    </li>
+
+    <li class="exp">
+      <div class="exp-meta"><b>2a9e130</b> · Aug 2022</div>
+      <h3>Tunisie Télécom — Introductory Internship I</h3>
+      <div class="subject" data-i18n="exp5Subject">Networking fundamentals</div>
+      <ul>
+        <li data-i18n="exp5a">Simulated local networks with Packet Tracer and configured access routers.</li>
+      </ul>
+    </li>
+  </ul>
+</section>
+
+<section id="recruiter" class="section recruiter">
+  <div class="prompt"><b>$</b> ./recruiter-mode.sh</div>
+  <h2 class="section-title" data-i18n="recruitTitle">Recruiter snapshot</h2>
+  <p class="blurb" data-i18n="recruitBlurb">If you have 30 seconds, start here.</p>
+  <div class="recruit-grid">
+    <ul class="recruit-list">
+      <li><b>ROLE</b><br>Cloud / DevOps / Platform Engineering / Infrastructure / Automation</li>
+      <li><b>AVAILABILITY</b><br>6-month final-year internship · January 2027</li>
+      <li><b>LOCATION</b><br>Tunisia · open to international opportunities</li>
+    </ul>
+    <ul class="recruit-list">
+      <li><b>CORE STACK</b><br>Docker · Kubernetes · Terraform · Ansible · Linux · OpenStack · CI/CD</li>
+      <li><b>EDUCATION</b><br>ESPRIT — Computer Engineering, Cloud Computing</li>
+      <li><b>LANGUAGES</b><br>French B2 · English B2 · Spanish A1</li>
+    </ul>
+  </div>
+  <div class="buttons" style="margin-top:18px">
+    <a class="btn primary" href="mailto:mejri.takwa26@gmail.com" data-i18n="talkBtn">Let's talk</a>
+    <a class="btn" href="https://github.com/TakwaMejri" target="_blank">GitHub</a>
+    <a class="btn" href="https://linkedin.com/in/takwa-mejri02" target="_blank">LinkedIn</a>
+  </div>
+</section>
+
+<section id="contact" class="section">
+  <div class="prompt"><b>$</b> ./contact.sh --help</div>
+  <h2 class="section-title" data-i18n="contactTitle">Let's build something reliable.</h2>
+  <p class="blurb" data-i18n="contactBlurb">The next deployment could be a good one.</p>
+  <div class="contact">
+    <div><b>--email</b><br><a href="mailto:mejri.takwa26@gmail.com">mejri.takwa26@gmail.com</a></div>
+    <div><b>--phone</b><br><a href="tel:+21658833086">+216 58 833 086</a></div>
+    <div><b>--github</b><br><a href="https://github.com/TakwaMejri" target="_blank">github.com/TakwaMejri</a></div>
+    <div><b>--linkedin</b><br><a href="https://linkedin.com/in/takwa-mejri02" target="_blank">linkedin.com/in/takwa-mejri02</a></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="prompt"><b>$</b> ./mode-interactif.sh</div>
+  <p class="blurb" data-i18n="consoleBlurb">Try the terminal. Type <code>help</code>.</p>
+  <div class="console">
+    <div class="output" id="output"></div>
+    <div class="input-row"><span>takwa@devops:~$</span><input id="input" autocomplete="off" spellcheck="false" placeholder="help"></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <span>© 2026 Takwa Mejri</span>
+  <span id="uptime">session uptime: 00:00:00</span>
+  <span data-i18n="footer">built with curiosity + Docker logs</span>
+</footer>
+
+</div>
+</div>
+
+<script>
+const T={
+fr:{
+ online:"en ligne", recruiterMode:"Recruiter mode",
+ navAbout:"~/about",navJourney:"~/parcours",navProjects:"~/projets",navSkills:"~/competences",navExperience:"~/experience",navContact:"~/contact",
+ kicker:"Étudiante ingénieure en informatique · Cloud & DevOps",
+ heroRole:"Cloud · Infrastructure · Réseaux · DevOps · Automatisation",
+ heroCopy:"J’ai commencé par les réseaux, puis Linux et l’automatisation, avant de découvrir le Cloud et Kubernetes. Aujourd’hui, je construis des infrastructures reproductibles, des plateformes conteneurisées et des workflows CI/CD à travers mes projets, stages et labs pratiques.",
+ storyLine:"Mon objectif n’est pas de prétendre tout savoir. C’est de comprendre pourquoi les choses cassent, automatiser ce qui peut l’être, documenter ce que j’apprends et continuer à progresser.",
+ pfe:"🎯 PFE disponible — janvier 2027",journeyBtn:"$ ./voir-mon-parcours.sh",
+ journeyTitle:"Le parcours : des réseaux vers le Cloud",
+ journeyBlurb:"Les technologies ont changé. La direction est devenue plus claire.",
+ j1Title:"Réseaux — comprendre les fondations",j1Text:"Packet Tracer, routeurs, connectivité : les premières bases qui m’ont fait comprendre que l’infrastructure ne se limite pas au code.",
+ j2Title:"Linux & Automatisation — arrêter de faire les choses à la main",j2Text:"Linux, Ansible et GitLab CI m’ont appris qu’une opération répétitive doit devenir reproductible et automatisée.",
+ j3Title:"Cloud & CI/CD — livrer avec plus de confiance",j3Text:"Un projet de 9 microservices m’a amenée vers Docker Compose, Azure, AKS, Terraform, les tests automatisés et la supervision.",
+ j4Title:"Cloud-native — construire des systèmes plus complets",j4Text:"STADNA a réuni OpenStack, Docker, Kubernetes, Ansible et une application multi-services dans un projet d’équipe.",
+ j5Title:"Production mindset — apprendre à diagnostiquer",j5Text:"Chez DATA-TRICKS, j’ai travaillé sur un LMS conteneurisé, le RBAC, les sauvegardes et de vrais problèmes d’infrastructure.",
+ j6Title:"Prochaine étape — votre infrastructure ?",j6Text:"Je recherche un PFE de 6 mois en Cloud, DevOps, Platform Engineering, infrastructure ou automatisation à partir de janvier 2027.",
+ projectsTitle:"Ce que je construis",projectsBlurb:"Pas seulement des listes de technologies : problème → architecture → résultat → leçon.",
+ built:"Construit",learned:"Appris",
+ stadnaDesc:"Plateforme tunisienne cloud-native de réservation et gestion de terrains de football.",
+ stadnaLearn:"Faire fonctionner ensemble infrastructure, réseau, orchestration et développement applicatif.",
+ dataDesc:"Plateforme Moodle conteneurisée pour la formation interne et l’évaluation de candidats externes.",
+ dataLearn:"Comprendre comment les décisions d’infrastructure influencent fiabilité, sécurité, isolation et exploitation.",
+ azureDesc:"Projet de fin d’études autour du déploiement d’une application de 9 microservices sur Microsoft Azure.",
+ azureLearn:"Comprendre le chemin du code source jusqu’au build, aux tests, à l’infrastructure et au déploiement automatisés.",
+ outidDesc:"Plateforme e-learning interactive destinée aux étudiants et enfants tunisiens.",
+ outidLearn:"Concevoir une application complète autour d’un besoin utilisateur réel.",
+ incidentLink:"→ Voir l’incident",
+ incidentTitle:"Une vraie histoire de troubleshooting",incidentBlurb:"Parce que le DevOps ne consiste pas seulement à déployer quand tout fonctionne.",
+ symptom:"SYMPTÔME",symptomText:"Problème de communication du reverse proxy.",
+ investigation:"INVESTIGATION",investigationText:"Vérification des versions, de la compatibilité API et du comportement du déploiement.",
+ resolution:"RÉSOLUTION",resolutionText:"Migration du reverse proxy vers Nginx Proxy Manager et restauration du service.",
+ incidentLesson:"Leçon : lorsqu’une infrastructure casse, il faut comprendre la chaîne de dépendances avant d’appliquer un contournement au hasard.",
+ skillsTitle:"Ce avec quoi je peux travailler",skillsBlurb:"Des compétences soutenues par des projets, des stages et de la pratique.",
+ experienceTitle:"Expérience",experienceBlurb:"Chaque entrée correspond à quelque chose sur lequel j’ai réellement travaillé.",
+ exp1Subject:"Plateforme LMS conteneurisée",exp1a:"Conçu et déployé un LMS Moodle pour la formation interne et l’évaluation de candidats externes, avec RBAC et isolation entre les populations.",exp1b:"Travaillé avec Docker, MariaDB, Redis, SMTP, sauvegardes et services conteneurisés.",exp1c:"Diagnostiqué une incompatibilité Traefik v3 / Docker Engine 29 puis migré le reverse proxy.",exp1d:"Développé des fonctionnalités Moodle autour du SSO OAuth2 et des certificats PDF.",exp1e:"Travaillé en Scrum sur quatre sprints et documenté la solution technique.",
+ exp2Subject:"Audit de sécurité d’une API REST ASP.NET Core",exp2a:"Audité une API REST et identifié trois vulnérabilités avec OWASP ZAP.",exp2b:"Mis en place une double authentification pour une application d’assurance.",exp2c:"Documenté les constats et proposé des améliorations de sécurité.",
+ exp3Subject:"Pipeline CI/CD pour Microsoft Azure",exp3a:"Travaillé sur une application de 9 microservices conteneurisée avec Docker Compose.",exp3b:"Intégré des tests système automatisés dans le workflow de livraison.",exp3c:"Mis en place un pipeline CI/CD sur Azure et orchestré l’application avec AKS.",exp3d:"Provisionné l’infrastructure avec Terraform et mis en place Prometheus/Grafana.",
+ exp4Subject:"Automatisation des opérations Linux",exp4a:"Automatisé des opérations Linux avec GitLab CI et Ansible.",exp4b:"Développé des playbooks Ansible pour standardiser les configurations réseau.",
+ exp5Subject:"Fondamentaux réseaux",exp5a:"Simulé des réseaux locaux avec Packet Tracer et configuré des routeurs d’accès.",
+ recruitTitle:"Vue recruteur",recruitBlurb:"Si vous avez 30 secondes, commencez ici.",talkBtn:"Parlons-en",
+ contactTitle:"Construisons quelque chose de fiable.",contactBlurb:"Le prochain déploiement pourrait être le bon.",
+ consoleBlurb:"Essayez le terminal. Tapez help.",footer:"built with curiosity + Docker logs"
+},
+en:{
+ online:"online",recruiterMode:"Recruiter mode",
+ navAbout:"~/about",navJourney:"~/journey",navProjects:"~/projects",navSkills:"~/skills",navExperience:"~/experience",navContact:"~/contact",
+ kicker:"Computer Engineering Student · Cloud & DevOps",
+ heroRole:"Cloud · Infrastructure · Networks · DevOps · Automation",
+ heroCopy:"I started with networks, moved into Linux and automation, then discovered Cloud and Kubernetes. Today, I build reproducible infrastructure, containerized platforms and CI/CD workflows through projects, internships and hands-on labs.",
+ storyLine:"My goal is not to pretend I know everything. It is to understand why things break, automate what can be automated, document what I learn, and keep improving.",
+ pfe:"🎯 Final-year internship available — January 2027",journeyBtn:"$ ./see-my-journey.sh",
+ journeyTitle:"The journey: from networks to Cloud",journeyBlurb:"The technologies changed. The direction became clearer.",
+ j1Title:"Networks — understanding the foundation",j1Text:"Packet Tracer, routers and connectivity: the first foundations that showed me infrastructure is more than application code.",
+ j2Title:"Linux & Automation — stop doing things manually",j2Text:"Linux, Ansible and GitLab CI introduced the idea that repetitive operations should become reproducible and automated.",
+ j3Title:"Cloud & CI/CD — shipping with more confidence",j3Text:"A 9-microservice project led me to Docker Compose, Azure, AKS, Terraform, automated testing and monitoring.",
+ j4Title:"Cloud-native — building bigger systems",j4Text:"STADNA brought together OpenStack, Docker, Kubernetes, Ansible and a multi-service application in a team project.",
+ j5Title:"Production mindset — learning to troubleshoot",j5Text:"At DATA-TRICKS, I worked on a containerized LMS, RBAC, backups and real infrastructure troubleshooting.",
+ j6Title:"Next chapter — your infrastructure?",j6Text:"I am looking for a 6-month final-year internship in Cloud, DevOps, Platform Engineering, infrastructure or automation, starting January 2027.",
+ projectsTitle:"What I build",projectsBlurb:"Not just technology lists: problem → architecture → result → lesson.",
+ built:"Built",learned:"Learned",
+ stadnaDesc:"Cloud-native Tunisian football-pitch booking and management platform.",
+ stadnaLearn:"How infrastructure, networking, orchestration and application development have to work together.",
+ dataDesc:"Containerized Moodle platform for internal training and external candidate assessment.",
+ dataLearn:"How infrastructure decisions affect reliability, security, isolation and operations.",
+ azureDesc:"Bachelor's capstone focused on deploying a 9-microservice application on Microsoft Azure.",
+ azureLearn:"The path from source code to automated build, testing, infrastructure and deployment.",
+ outidDesc:"Interactive e-learning platform designed for Tunisian students and children.",
+ outidLearn:"How to design a complete application around a real user need.",
+ incidentLink:"→ See the incident",
+ incidentTitle:"A real troubleshooting story",incidentBlurb:"Because DevOps is not only about deploying when everything works.",
+ symptom:"SYMPTOM",symptomText:"Reverse proxy communication issue.",
+ investigation:"INVESTIGATION",investigationText:"Checked versions, API compatibility and deployment behavior.",
+ resolution:"RESOLUTION",resolutionText:"Migrated the reverse proxy to Nginx Proxy Manager and restored the service.",
+ incidentLesson:"Lesson: when infrastructure breaks, understand the dependency chain before applying a random workaround.",
+ skillsTitle:"What I can work with",skillsBlurb:"Skills backed by projects, internships and hands-on practice.",
+ experienceTitle:"Experience",experienceBlurb:"Each entry represents something I actually worked on.",
+ exp1Subject:"Containerized LMS platform",exp1a:"Designed and deployed a Moodle LMS for internal training and external candidate assessment, with RBAC and isolation between audiences.",exp1b:"Worked with Docker, MariaDB, Redis, SMTP, backups and containerized services.",exp1c:"Investigated a Traefik v3 / Docker Engine 29 compatibility issue and migrated the reverse proxy.",exp1d:"Built custom Moodle functionality around OAuth2 SSO and PDF certificates.",exp1e:"Worked in Scrum across four sprints and documented the technical solution.",
+ exp2Subject:"Security audit of an ASP.NET Core REST API",exp2a:"Audited a REST API and identified three vulnerabilities using OWASP ZAP.",exp2b:"Implemented two-factor authentication for an insurance application.",exp2c:"Documented findings and proposed concrete security improvements.",
+ exp3Subject:"CI/CD pipeline for Microsoft Azure",exp3a:"Worked on a 9-microservice application containerized with Docker Compose.",exp3b:"Integrated automated system tests into the delivery workflow.",exp3c:"Built a CI/CD pipeline on Azure and orchestrated the application with AKS.",exp3d:"Provisioned infrastructure with Terraform and set up Prometheus/Grafana.",
+ exp4Subject:"Linux operations automation",exp4a:"Automated Linux operations with GitLab CI and Ansible.",exp4b:"Developed Ansible playbooks to standardize network configurations.",
+ exp5Subject:"Networking fundamentals",exp5a:"Simulated local networks with Packet Tracer and configured access routers.",
+ recruitTitle:"Recruiter snapshot",recruitBlurb:"If you have 30 seconds, start here.",talkBtn:"Let's talk",
+ contactTitle:"Let's build something reliable.",contactBlurb:"The next deployment could be a good one.",
+ consoleBlurb:"Try the terminal. Type help.",footer:"built with curiosity + Docker logs"
+}};
+
+let lang=localStorage.getItem("takwa-lang")||"fr";
+const $=s=>document.querySelector(s);
+function applyLang(){
+ document.documentElement.lang=lang;
+ document.querySelectorAll("[data-i18n]").forEach(el=>{
+   const k=el.dataset.i18n;if(T[lang][k]!==undefined)el.innerHTML=T[lang][k];
+ });
+ document.querySelectorAll(".lang button").forEach(b=>b.classList.toggle("active",b.dataset.lang===lang));
+ localStorage.setItem("takwa-lang",lang);
+}
+document.querySelectorAll(".lang button").forEach(b=>b.onclick=()=>{lang=b.dataset.lang;applyLang();print("→ "+(lang==="fr"?"langue changée : Français":"language switched: English"))});
+applyLang();
+
+$("#recruiterToggle").onclick=()=>{document.body.classList.toggle("recruiter-mode");$("#recruiter").scrollIntoView({behavior:"smooth"})};
+
+const navLinks=[...document.querySelectorAll("nav a")];
+const sections=navLinks.map(a=>document.querySelector(a.getAttribute("href"))).filter(Boolean);
+new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)navLinks.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+e.target.id))}),{rootMargin:"-35% 0px -55%"}).observe(sections[0]);
+sections.slice(1).forEach(s=>new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)navLinks.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+e.target.id))}),{rootMargin:"-35% 0px -55%"}).observe(s));
+
+const output=$("#output"),input=$("#input");
+function print(text,cmd=false){const d=document.createElement("div");if(cmd)d.className="cmd";d.textContent=text;output.appendChild(d);output.scrollTop=output.scrollHeight}
+const commands={
+ help:`commands:
+  whoami       quick profile
+  story        career journey
+  skills       core technologies
+  experience   professional experience
+  projects     main projects
+  incident     latest troubleshooting story
+  contact      contact details
+  coffee       energy status
+  clear        clear terminal
+  sudo hire-takwa  accelerated recruitment`,
+ whoami:{fr:"Takwa Mejri — étudiante ingénieure Cloud/DevOps. Docker, Kubernetes, Terraform, Ansible. PFE disponible à partir de janvier 2027.",en:"Takwa Mejri — Cloud/DevOps engineering student. Docker, Kubernetes, Terraform, Ansible. Available for a final-year internship from January 2027."},
+ story:{fr:"2022 Réseaux → 2024 Linux & Automation → 2024 Cloud & CI/CD → 2025-26 Cloud-native → 2026 Production mindset → 2027 PFE.",en:"2022 Networks → 2024 Linux & Automation → 2024 Cloud & CI/CD → 2025-26 Cloud-native → 2026 Production mindset → 2027 internship."},
+ skills:{fr:"Docker · Kubernetes · Terraform · Ansible · Linux · OpenStack · Azure · AWS · CI/CD · Prometheus · Grafana",en:"Docker · Kubernetes · Terraform · Ansible · Linux · OpenStack · Azure · AWS · CI/CD · Prometheus · Grafana"},
+ experience:{fr:"DATA-TRICKS · SEIT Consulting · SASCode · Topnet · Tunisie Télécom",en:"DATA-TRICKS · SEIT Consulting · SASCode · Topnet · Tunisie Télécom"},
+ projects:{fr:"STADNA · DATA-TRICKS LMS · Azure CI/CD · Outid",en:"STADNA · DATA-TRICKS LMS · Azure CI/CD · Outid"},
+ incident:{fr:"Traefik v3 × Docker Engine 29 → investigation → reverse proxy migration → service restored.",en:"Traefik v3 × Docker Engine 29 → investigation → reverse proxy migration → service restored."},
+ contact:"email: mejri.takwa26@gmail.com\nphone: +216 58 833 086\ngithub: github.com/TakwaMejri\nlinkedin: linkedin.com/in/takwa-mejri02",
+ coffee:{fr:"☕ caféine : opérationnelle. Build en cours...",en:"☕ caffeine: operational. Build in progress..."}
+};
+function run(raw){
+ const c=raw.trim().toLowerCase();if(!c)return;
+ print(raw,true);
+ if(c==="clear"){output.innerHTML="";return}
+ if(c==="help"){print(commands.help);return}
+ if(commands[c]){const v=commands[c];print(typeof v==="string"?v:v[lang]);return}
+ if(c==="sudo hire-takwa"||c==="hire-takwa"){
+   print(lang==="fr"?"[sudo] Permission accordée. Candidature → mejri.takwa26@gmail.com 🚀":"[sudo] Permission granted. Application → mejri.takwa26@gmail.com 🚀");return;
+ }
+ if(c.startsWith("cd ")){
+   const target=c.slice(3).replace(/^~\//,"");
+   const map={about:"about",profil:"about",journey:"journey",parcours:"journey",projects:"projects",projets:"projects",skills:"skills",competences:"skills",experience:"experience",contact:"contact"};
+   if(map[target]){document.getElementById(map[target]).scrollIntoView({behavior:"smooth"});print("→ "+target);return}
+ }
+ print(lang==="fr"?"commande introuvable — essayez help":"command not found — try help");
+}
+input.addEventListener("keydown",e=>{if(e.key==="Enter"){run(input.value);input.value=""}});
+print(lang==="fr"?'session interactive prête. tapez "help".':'interactive session ready. type "help".');
+
+const start=Date.now();
+setInterval(()=>{let s=Math.floor((Date.now()-start)/1000),h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;$("#uptime").textContent=(lang==="fr"?"session uptime : ":"session uptime: ")+[h,m,x].map(n=>String(n).padStart(2,"0")).join(":")},1000);
+</script>
+</body>
+</html>
